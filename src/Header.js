@@ -23,15 +23,15 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "space-evenly",
     },
-    grey:{
-        backgroundColor:"lightgrey",
-        height:"50px",
-        display:"flex",
-        justifyContent:"space-between"
+    grey: {
+        backgroundColor: "lightgrey",
+        height: "50px",
+        display: "flex",
+        justifyContent: "space-between"
     },
-    filter:{
-        display:"flex",
-        alignItems:"center",
+    filter: {
+        display: "flex",
+        alignItems: "center",
 
     }
 }));
@@ -82,45 +82,43 @@ function Header() {
                 </div>
             </div>
             <div className={classes.grey}>
-            <div className={classes.filter}>
-                <FilterListIcon />
-                <Button
-                    id="demo-positioned-button"
-                    aria-controls={open ? 'demo-positioned-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}
-                    color='inherit'
-                >
-                    Filtreler
-                </Button>
-                <Menu
-                    id="demo-positioned-menu"
-                    aria-labelledby="demo-positioned-button"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left',
-                    }}
-                >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
-                </Menu>
+                <div className={classes.filter}>
+                    <div>
+                        <IconButton size="small" onClick={handleClick} id="demo-positioned-button"
+                            aria-controls={open ? 'demo-positioned-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}>
+                            <FilterListIcon />
+                        </IconButton>
+                        Filtreler
+                    </div>
+                    <Menu
+                        id="demo-positioned-menu"
+                        aria-labelledby="demo-positioned-button"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                    >
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    </Menu>
+
+                </div>
+                <div className={classes.filter}>
+                    <TodayIcon />
+                    <p>Takvimde Gör</p>
+                </div>
 
             </div>
-            <div className={classes.filter}>
-            <TodayIcon/>
-            <p>Takvimde Gör</p>
-            </div>
-
-        </div>
         </div>
     )
 }
