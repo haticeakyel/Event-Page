@@ -111,7 +111,9 @@ function Page() {
     const [lastFilteredEvents, setLastFilteredEvents] = useState(events);
     const [currentSearch, setCurrentSearch] = useState("")
     const [lastSearched, setLastSearched] = useState("");
-    const [checked, setChecked] = useState([]);
+    const [lastFilteredDates, setLastFilteredDates] = useState(events);
+
+    const today = new Date();
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -153,19 +155,46 @@ function Page() {
     } 
 
     const handleCheck = (event) => {
-        var updatedList = [...checked];
         if (event.target.checked) {
-          updatedList = [...checked, event.target.value];
-        } else {
-          updatedList.splice(checked.indexOf(event.target.value), 1);
+          switch (event.target.value) {
+            case 'uniq-hall':
+              console.log('Maximum UNIQ Hall checked');
+              setLastFilteredEvents(events.filter((event) => event.place === 'Maximum UNIQ Hall'));
+              break;
+            case 'uniq-box':
+              console.log('Maximum UNIQ Box checked');
+              setLastFilteredEvents(events.filter((event) => event.place === 'Maximum UNIQ Box'));
+              break;
+            case 'uniq-lounge':
+              console.log('Maximum UNIQ Lounge checked');
+              setLastFilteredEvents(events.filter((event) => event.place === 'Maximum UNIQ Lounge'));
+              break;
+           
+            default:
+              break;
+          }
+        }else{
+            setLastFilteredEvents(events)
         }
-        setChecked(updatedList);
       };
 
+      const handleCheckDate = (event) => {
+        if (event.target.checked) {
+          switch (event.target.value) {
+            case 'past':
+            setLastFilteredEvents(events.filter((event) => new Date(event.date) < today));
+            break;
+            case 'future':
+            setLastFilteredEvents(events.filter((event) => new Date(event.date) > today));
+            break;
+            default:
+              break;
+          }
+        }else{
+            setLastFilteredEvents(events)
+        }
+      };
 
-  // Return classes based on whether item is checked
-    var isChecked = (item) =>
-    checked.includes(item) ? "checked-item" : "not-checked-item";
     return (
         <>
         <div>
@@ -241,9 +270,14 @@ function Page() {
                     >
                     <FormGroup>
                     <p className={classes.title}>Etkinlik Mekanı</p>
-                    <FormControlLabel control={<Checkbox/>} onChange={handleCheck} label="Maximum UNIQ Hall" />
-                    <FormControlLabel control={<Checkbox/>} onChange={handleCheck} label="Maximum UNIQ Box" />
-                    <FormControlLabel control={<Checkbox/>} onChange={handleCheck} label="Maximum UNIQ Lounge" />
+                    <FormControlLabel control={<Checkbox/>}  value="uniq-hall" onChange={handleCheck} label="Maximum UNIQ Hall" />
+                    <FormControlLabel control={<Checkbox/>} value="uniq-box" onChange={handleCheck} label="Maximum UNIQ Box" />
+                    <FormControlLabel control={<Checkbox/>} value="uniq-lounge" onChange={handleCheck} label="Maximum UNIQ Lounge" />
+                  </FormGroup>
+                  <FormGroup>
+                    <p className={classes.title}>Etkinlik Tarihi</p>
+                    <FormControlLabel control={<Checkbox/>}  value="past" onChange={handleCheckDate} label="Geçmiş Etkinlikler" />
+                    <FormControlLabel control={<Checkbox/>} value="future" onChange={handleCheckDate} label="Gelecek Etkinlikler" />
                   </FormGroup>
                     </Menu>
 
