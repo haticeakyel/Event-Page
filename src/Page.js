@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from "./assets/logo.png"
 import { makeStyles } from "@mui/styles";
-import { IconButton, TextField } from '@mui/material';
+import { Checkbox, FormControlLabel, FormGroup, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import Button from '@mui/material/Button';
@@ -9,6 +9,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import TodayIcon from '@mui/icons-material/Today';
+import Events from './Events';
+import pink from "./assets/pink.png"
+import sener from "./assets/sener.png"
+import yasemin from "./assets/yasemin.png"
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -35,15 +39,76 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
 
+    },
+    title:{
+        display:"flex",
+        justifyContent:"center",
+        fontWeight:"center"
     }
 }));
 
 
-function Header() {
+function Page() {
+    const [events, setEvents] = useState([
+        {
+          name: 'BKM Yaz Etkinlikleri: Zengin Mutfağı',
+          description: '1978 yılında ilk kez İstanbul Şehir Tiyatrolarında bu oyunda aşçı Lütfü Usta’yı canlandıran Şener Şen, 40 yıl aradan sonra aynı rolde ve genç bir...',
+          place:'Maximum UNIQ Hall',
+          date: '2023-05-10',
+          type:'Tiyatro',
+          time: '14:00',
+          src: sener
+        },{
+          name: 'Yasemin Sakallıoğlu',
+          description: '1978 yılında ilk kez İstanbul Şehir Tiyatrolarında bu oyunda aşçı Lütfü Usta’yı canlandıran Şener Şen, 40 yıl aradan sonra aynı rolde ve genç bir...',
+          place:'Maximum UNIQ Açık Hava',
+          date: '2023-05-7',
+          time: '14:00',
+          type:'Stand-Up',
+          src: yasemin
+        },
+        {
+          name: 'Sinema Keyfi: Rifkin’s Festival',
+          description: '1978 yılında ilk kez İstanbul Şehir Tiyatrolarında bu oyunda aşçı Lütfü Usta’yı canlandıran Şener Şen, 40 yıl aradan sonra aynı rolde ve genç bir...',
+          place:'Maximum UNIQ Hall',
+          date: '2023-05-1',
+          type:'Sinema',
+          time: '14:00',
+          src: pink
+        },
+        {
+          name: 'BKM Yaz Etkinlikleri: Zengin Mutfağı',
+          description: '1978 yılında ilk kez İstanbul Şehir Tiyatrolarında bu oyunda aşçı Lütfü Usta’yı canlandıran Şener Şen, 40 yıl aradan sonra aynı rolde ve genç bir...',
+          place:'Maximum UNIQ Lounge',
+          date: '2023-05-25',
+          type:'Tiyatro',
+          time: '14:00',
+          src: sener
+        },
+        {
+          name: 'Yasemin Sakallıoğlu',
+          description: '1978 yılında ilk kez İstanbul Şehir Tiyatrolarında bu oyunda aşçı Lütfü Usta’yı canlandıran Şener Şen, 40 yıl aradan sonra aynı rolde ve genç bir...',
+          place:'Maximum UNIQ Hall',
+          date: '2023-05-2',
+          type:'Stand-Up',
+          time: '14:00',
+          src: yasemin
+        },
+        {
+          name: 'Sinema Keyfi: Rifkin’s Festival',
+          description: '1978 yılında ilk kez İstanbul Şehir Tiyatrolarında bu oyunda aşçı Lütfü Usta’yı canlandıran Şener Şen, 40 yıl aradan sonra aynı rolde ve genç bir...',
+          place:'Maximum UNIQ Box',
+          date: '2023-05-12',
+          type:'Sinema',
+          time: '14:00',
+          src: pink
+        },
+      ]);
+     
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [lastFilteredEvents, setLastFilteredEvents] = useState([]);
+    const [lastFilteredEvents, setLastFilteredEvents] = useState(events);
     const [currentSearch, setCurrentSearch] = useState("")
     const [lastSearched, setLastSearched] = useState("");
 
@@ -55,7 +120,7 @@ function Header() {
         setAnchorEl(null);
     };
 
-   /*  const handleFilteredSearch = () => {
+    const handleFilteredSearch = () => {
 
         let rawData = currentSearch;
 
@@ -64,11 +129,6 @@ function Header() {
 
         let standartizedCurrentSearch = lowerCasedData
         setCurrentSearch(standartizedCurrentSearch);
-
-        if (standartizedCurrentSearch === "") {
-            handleShownUsers(pageNumber)
-            return;
-        }
 
         if (standartizedCurrentSearch === lastSearched) {
             return;
@@ -88,8 +148,10 @@ function Header() {
 
     const deleteCurrentSearch = () => {
         setCurrentSearch("");
-    } */
+        setLastFilteredEvents(events)
+    } 
     return (
+        <>
         <div>
             <div className={classes.item}>
                 <img className={classes.logo} src={logo} alt="Logo" />
@@ -108,8 +170,8 @@ function Header() {
                 <div style={{ justifyContent: "end" }}>
                     <TextField size='small'
                         placeholder='Etkinlik Ara'
-                        /* onChange={(e) => setCurrentSearch(e.target.value)}
-                        onKeyPress={(e) => checkPressedEnter(e.key)} */
+                        onChange={(e) => setCurrentSearch(e.target.value)}
+                        onKeyPress={(e) => checkPressedEnter(e.key)} 
                         InputProps={{
                             startAdornment: (
                                 <>
@@ -118,14 +180,14 @@ function Header() {
                                         style={{
                                             display: currentSearch.length > 0 ? "block" : "none",
                                         }}
-                                        /* onClick={deleteCurrentSearch} */
+                                         onClick={deleteCurrentSearch} 
                                     >
                                         <ClearIcon
                                             htmlColor="#2F455C"
                                             style={{ fontSize: "18px" }}
                                         />
                                     </IconButton>
-                                    <IconButton size="small" /* onClick={handleFilteredSearch} */>
+                                    <IconButton size="small" onClick={handleFilteredSearch}>
                                         <SearchIcon />
                                     </IconButton>
                                 </>
@@ -161,9 +223,12 @@ function Header() {
                             horizontal: 'left',
                         }}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <FormGroup>
+                    <p className={classes.title}>Etkinlik Mekanı</p>
+                    <FormControlLabel control={<Checkbox/>} label="Maximum UNIQ Hall" />
+                    <FormControlLabel control={<Checkbox/>} label="Maximum UNIQ Box" />
+                    <FormControlLabel control={<Checkbox/>} label="Maximum UNIQ Lounge" />
+                  </FormGroup>
                     </Menu>
 
                 </div>
@@ -174,7 +239,9 @@ function Header() {
 
             </div>
         </div>
+        <Events events={lastFilteredEvents}/>
+        </>
     )
 }
 
-export default Header;
+export default Page;

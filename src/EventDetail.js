@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop:"50px"
     },
     date:{
-        zIndex: 2,
+        zIndex: 3,
         color:"deeppink",
         fontSize:"20px"
     },

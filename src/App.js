@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from "@mui/styles";
-import Header from "./Header";
-import Events from './Events';
+import Page from "./Page";
 
 const useStyles = makeStyles((theme) => ({
   img:{
@@ -14,8 +13,7 @@ function App() {
   const classes = useStyles();
   return (
     <div>
-    <Header/>
-    <Events/>
+    <Page/>
     </div>
   );
 }
