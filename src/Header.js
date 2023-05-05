@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from "./assets/logo.png"
 import { makeStyles } from "@mui/styles";
 import { IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "lightgrey",
         height: "50px",
         display: "flex",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        marginBottom:"4%"
     },
     filter: {
         display: "flex",
@@ -41,6 +43,10 @@ function Header() {
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [lastFilteredEvents, setLastFilteredEvents] = useState([]);
+    const [currentSearch, setCurrentSearch] = useState("")
+    const [lastSearched, setLastSearched] = useState("");
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -48,6 +54,41 @@ function Header() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+   /*  const handleFilteredSearch = () => {
+
+        let rawData = currentSearch;
+
+        let trimmedRawData = rawData.trim();
+        let lowerCasedData = trimmedRawData
+
+        let standartizedCurrentSearch = lowerCasedData
+        setCurrentSearch(standartizedCurrentSearch);
+
+        if (standartizedCurrentSearch === "") {
+            handleShownUsers(pageNumber)
+            return;
+        }
+
+        if (standartizedCurrentSearch === lastSearched) {
+            return;
+        }
+
+        const filteredEvents = events.filter((event) => event.name.includes(standartizedCurrentSearch))
+        setLastFilteredEvents(filteredEvents);
+
+        setLastSearched(standartizedCurrentSearch)
+    }
+
+    const checkPressedEnter = (key) => {
+        if (key === "Enter") {
+            handleFilteredSearch();
+        }
+    }
+
+    const deleteCurrentSearch = () => {
+        setCurrentSearch("");
+    } */
     return (
         <div>
             <div className={classes.item}>
@@ -67,14 +108,27 @@ function Header() {
                 <div style={{ justifyContent: "end" }}>
                     <TextField size='small'
                         placeholder='Etkinlik Ara'
+                        /* onChange={(e) => setCurrentSearch(e.target.value)}
+                        onKeyPress={(e) => checkPressedEnter(e.key)} */
                         InputProps={{
                             startAdornment: (
-                                <IconButton
-                                    size="small"
-                                >
-                                    <SearchIcon />
-                                </IconButton>
-
+                                <>
+                                    <IconButton
+                                        size="small"
+                                        style={{
+                                            display: currentSearch.length > 0 ? "block" : "none",
+                                        }}
+                                        /* onClick={deleteCurrentSearch} */
+                                    >
+                                        <ClearIcon
+                                            htmlColor="#2F455C"
+                                            style={{ fontSize: "18px" }}
+                                        />
+                                    </IconButton>
+                                    <IconButton size="small" /* onClick={handleFilteredSearch} */>
+                                        <SearchIcon />
+                                    </IconButton>
+                                </>
                             ),
                         }}
                     />

@@ -67,7 +67,7 @@ function Events() {
       events.map((event, index) => {
         return (
           <div style={{ display: "contents" }} key={index}>
-            <EventDetail event={event}/>
+            <EventDetail event={event} />
           </div>
         );
       })}
