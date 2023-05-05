@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import logo from "./assets/logo.png"
 import { makeStyles } from "@mui/styles";
 import { Checkbox, FormControlLabel, FormGroup, IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import TodayIcon from '@mui/icons-material/Today';
 import Events from './Events';
@@ -111,7 +109,6 @@ function Page() {
     const [lastFilteredEvents, setLastFilteredEvents] = useState(events);
     const [currentSearch, setCurrentSearch] = useState("")
     const [lastSearched, setLastSearched] = useState("");
-    const [lastFilteredDates, setLastFilteredDates] = useState(events);
 
     const today = new Date();
 
