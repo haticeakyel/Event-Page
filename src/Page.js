@@ -111,6 +111,7 @@ function Page() {
     const [lastFilteredEvents, setLastFilteredEvents] = useState(events);
     const [currentSearch, setCurrentSearch] = useState("")
     const [lastSearched, setLastSearched] = useState("");
+    const [checked, setChecked] = useState([]);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -150,6 +151,21 @@ function Page() {
         setCurrentSearch("");
         setLastFilteredEvents(events)
     } 
+
+    const handleCheck = (event) => {
+        var updatedList = [...checked];
+        if (event.target.checked) {
+          updatedList = [...checked, event.target.value];
+        } else {
+          updatedList.splice(checked.indexOf(event.target.value), 1);
+        }
+        setChecked(updatedList);
+      };
+
+
+  // Return classes based on whether item is checked
+    var isChecked = (item) =>
+    checked.includes(item) ? "checked-item" : "not-checked-item";
     return (
         <>
         <div>
@@ -225,9 +241,9 @@ function Page() {
                     >
                     <FormGroup>
                     <p className={classes.title}>Etkinlik Mekanı</p>
-                    <FormControlLabel control={<Checkbox/>} label="Maximum UNIQ Hall" />
-                    <FormControlLabel control={<Checkbox/>} label="Maximum UNIQ Box" />
-                    <FormControlLabel control={<Checkbox/>} label="Maximum UNIQ Lounge" />
+                    <FormControlLabel control={<Checkbox/>} onChange={handleCheck} label="Maximum UNIQ Hall" />
+                    <FormControlLabel control={<Checkbox/>} onChange={handleCheck} label="Maximum UNIQ Box" />
+                    <FormControlLabel control={<Checkbox/>} onChange={handleCheck} label="Maximum UNIQ Lounge" />
                   </FormGroup>
                     </Menu>
 
